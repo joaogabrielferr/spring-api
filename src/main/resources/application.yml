@@ -1,1 +1,15 @@
-spring.application.name=spring-api
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring-api
+    username: root
+    password: 1234567
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  application:
+    name: USER-SERVICE
