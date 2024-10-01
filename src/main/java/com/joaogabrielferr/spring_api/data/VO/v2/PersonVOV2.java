@@ -1,11 +1,13 @@
-package com.joaogabrielferr.spring_api.data.VO.v1;
+package com.joaogabrielferr.spring_api.data.VO.v2;
 
+import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-public class PersonVO implements Serializable {
+public class PersonVOV2 implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -20,10 +22,12 @@ public class PersonVO implements Serializable {
 
     private String email;
 
+    private Date birthday;
 
-    public PersonVO(){}
 
-    public PersonVO(Long id, String firstName, String lastName, String address) {
+    public PersonVOV2(){}
+
+    public PersonVOV2(Long id, String firstName, String lastName, String address) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,17 +74,25 @@ public class PersonVO implements Serializable {
         this.email = email;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonVO personVO = (PersonVO) o;
-        return Objects.equals(id, personVO.id) && Objects.equals(firstName, personVO.firstName) && Objects.equals(lastName, personVO.lastName) && Objects.equals(address, personVO.address) && Objects.equals(email, personVO.email);
+        PersonVOV2 that = (PersonVOV2) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(email, that.email) && Objects.equals(birthday, that.birthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, email);
+        return Objects.hash(id, firstName, lastName, address, email, birthday);
     }
 }

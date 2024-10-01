@@ -1,8 +1,10 @@
 package com.joaogabrielferr.spring_api.services;
 
 import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
+import com.joaogabrielferr.spring_api.data.VO.v2.PersonVOV2;
 import com.joaogabrielferr.spring_api.exceptions.ResourceNotFoundException;
 import com.joaogabrielferr.spring_api.mapper.ObjectMapper;
+import com.joaogabrielferr.spring_api.mapper.custom.PersonMapper;
 import com.joaogabrielferr.spring_api.model.Person;
 import com.joaogabrielferr.spring_api.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    PersonMapper personMapper;
+
     private final Logger logger = Logger.getLogger(PersonService.class.getName());
 
 
@@ -44,6 +49,12 @@ public class PersonService {
         logger.info("Creating one person");
         var entity = ObjectMapper.parseObject(person,Person.class);
         return ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
+    }
+
+    public PersonVOV2 createV2(PersonVOV2 person){
+        logger.info("Creating one person with create v2");
+        var entity = personMapper.convertVOtoEntity(person);
+        return personMapper.convertEntityToVO(repository.save(entity));
     }
 
     public PersonVO update(PersonVO person){

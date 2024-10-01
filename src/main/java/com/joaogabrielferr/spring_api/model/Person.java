@@ -27,6 +27,9 @@ public class Person implements Serializable {
     @Column(nullable = false,length = 150)
     private String address;
 
+    @Column(nullable = false)
+    private String email;
+
 
     public Person(){}
 
@@ -69,16 +72,25 @@ public class Person implements Serializable {
         this.address = address;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address);
+        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(email, person.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address);
+        return Objects.hash(id, firstName, lastName, address, email);
     }
 }
