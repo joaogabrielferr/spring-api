@@ -1,6 +1,8 @@
 package com.joaogabrielferr.spring_api.services;
 
+import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
 import com.joaogabrielferr.spring_api.exceptions.ResourceNotFoundException;
+import com.joaogabrielferr.spring_api.mapper.ObjectMapper;
 import com.joaogabrielferr.spring_api.model.Person;
 import com.joaogabrielferr.spring_api.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +27,26 @@ public class PersonService {
     private final Logger logger = Logger.getLogger(PersonService.class.getName());
 
 
-    public Person findById(Long id){
+    public PersonVO findById(Long id){
         logger.info("Finding one person");
-        return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
+        var entity =  repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this id"));
 
+        return ObjectMapper.parseObject(entity, PersonVO.class);
     }
 
-    public List<Person> findAll(){
+    public List<PersonVO> findAll(){
         logger.info("Finding all");
 
-        return repository.findAll();
+        return ObjectMapper.parseListObject(repository.findAll(),PersonVO.class);
     }
 
-    public Person create(Person person){
+    public PersonVO create(PersonVO person){
         logger.info("Creating one person");
-
-        return repository.save(person);
+        var entity = ObjectMapper.parseObject(person,Person.class);
+        return ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
     }
 
-    public Person update(Person person){
+    public PersonVO update(PersonVO person){
         logger.info("Updating one person");
 
         var entity = repository.findById(person.getId())
@@ -53,20 +56,18 @@ public class PersonService {
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
 
-        return repository.save(person);
+        return ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
 
 
 
     }
 
-    public Boolean delete(Long id){
+    public void delete(Long id){
 
         var entity = repository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("User with id " + id + " does not exist"));
 
         repository.delete(entity);
-
-        return true;
     }
 
 

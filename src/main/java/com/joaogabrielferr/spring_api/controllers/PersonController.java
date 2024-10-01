@@ -1,6 +1,6 @@
 package com.joaogabrielferr.spring_api.controllers;
 
-import com.joaogabrielferr.spring_api.model.Person;
+import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
 import com.joaogabrielferr.spring_api.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,30 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/person") public class PersonController {
 
     @Autowired
     private PersonService personService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id")Long id){
+    public PersonVO findById(@PathVariable(value = "id")Long id){
         return personService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll(){
+    public List<PersonVO> findAll(){
         return personService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person){
+    public PersonVO create(@RequestBody PersonVO person){
         return personService.create(person);
     }
 
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Person> update(@RequestBody Person person,@PathVariable(value = "id")String id){
-        Person p = personService.update(person);
+    public ResponseEntity<PersonVO> update(@RequestBody PersonVO person,@PathVariable(value = "id")String id){
+        PersonVO p = personService.update(person);
         return ResponseEntity.ok(p);
     }
 
