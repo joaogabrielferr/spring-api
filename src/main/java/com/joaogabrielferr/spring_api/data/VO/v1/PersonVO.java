@@ -1,16 +1,21 @@
 package com.joaogabrielferr.spring_api.data.VO.v1;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+
+    @JsonProperty("id")
+    private Long myId; //representationModel (used to implement hateoas) already has a 'id' field
 
     private String firstName;
 
@@ -24,18 +29,18 @@ public class PersonVO implements Serializable {
     public PersonVO(){}
 
     public PersonVO(Long id, String firstName, String lastName, String address) {
-        this.id = id;
+        this.myId = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMyId() {
+        return myId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMyId(Long id) {
+        this.myId = id;
     }
 
     public String getFirstName() {
@@ -75,12 +80,13 @@ public class PersonVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         PersonVO personVO = (PersonVO) o;
-        return Objects.equals(id, personVO.id) && Objects.equals(firstName, personVO.firstName) && Objects.equals(lastName, personVO.lastName) && Objects.equals(address, personVO.address) && Objects.equals(email, personVO.email);
+        return Objects.equals(myId, personVO.myId) && Objects.equals(firstName, personVO.firstName) && Objects.equals(lastName, personVO.lastName) && Objects.equals(address, personVO.address) && Objects.equals(email, personVO.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, email);
+        return Objects.hash(super.hashCode(), myId, firstName, lastName, address, email);
     }
 }

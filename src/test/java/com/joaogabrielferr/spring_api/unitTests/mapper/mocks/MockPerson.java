@@ -38,7 +38,7 @@ public class MockPerson {
         p.setFirstName("First name test" + id);
         p.setLastName("Last name test" + id);
         p.setAddress("Address test" + id);
-        p.setId(id.longValue());
+        p.setMyId(id.longValue());
         return p;
     }
 

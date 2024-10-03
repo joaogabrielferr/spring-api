@@ -21,7 +21,7 @@ public class ObjectMapperTests {
     @Test
     public void parseEntityToVOTest(){
         PersonVO output = ObjectMapper.parseObject(inputObject.mockEntity(),PersonVO.class);
-        assertEquals(Long.valueOf(0L),output.getId());
+        assertEquals(Long.valueOf(0L),output.getMyId());
         assertEquals("First name test0",output.getFirstName());
         assertEquals("Last name test0",output.getLastName());
         assertEquals("Address test0",output.getAddress());
