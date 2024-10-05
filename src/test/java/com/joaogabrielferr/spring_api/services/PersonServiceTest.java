@@ -63,10 +63,26 @@ class PersonServiceTest {
 
     @Test
     void findAll() {
-//        List<Person> persons = input.mockEntityList();
-//
-//        when(repository.findAll()).thenReturn(persons);
-//
+        List<Person> personList = input.mockEntityList();
+
+        when(repository.findAll()).thenReturn(personList);
+
+        List<PersonVO> people = service.findAll();
+
+        assertNotNull(people);
+        assertEquals(10,people.size());
+
+        for(int i = 0;i<10;i++){
+        assertNotNull(people.get(i).getMyId());
+        assertNotNull(people.get(i).getLinks());
+        assertTrue(people.get(i).toString().contains(String.format("links: [</api/person/v1/%d>;rel=\"self\"]", people.get(i).getMyId())));
+        assertEquals(people.get(i).getMyId(), personList.get(i).getId());
+        assertEquals(people.get(i).getEmail(),personList.get(i).getEmail());
+        assertEquals(people.get(i).getFirstName(),personList.get(i).getFirstName());
+        assertEquals(people.get(i).getLastName(),personList.get(i).getLastName());
+        assertEquals(people.get(i).getAddress(),personList.get(i).getAddress());
+
+        }
 
     }
 
