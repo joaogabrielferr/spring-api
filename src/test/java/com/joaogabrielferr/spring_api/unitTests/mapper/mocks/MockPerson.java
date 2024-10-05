@@ -25,6 +25,15 @@ public class MockPerson {
         return p;
     }
 
+    public Person mockEntityWithoutId(){
+        Person p = new Person();
+        p.setFirstName("First name test");
+        p.setLastName("Last name test");
+        p.setAddress("Address test");
+        return p;
+    }
+
+
     public List<Person> mockEntityList(){
         List<Person> l = new ArrayList<>();
         for(int i = 0;i<10;i++){

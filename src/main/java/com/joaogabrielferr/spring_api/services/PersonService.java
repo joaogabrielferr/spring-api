@@ -54,8 +54,9 @@ public class PersonService {
 
     public PersonVO create(PersonVO person){
         logger.info("Creating one person");
+
         var entity = ObjectMapper.parseObject(person,Person.class);
-        PersonVO vo = ObjectMapper.parseObject(entity,PersonVO.class);
+        PersonVO vo = ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getMyId())).withSelfRel());
         return vo;
     }
@@ -76,12 +77,9 @@ public class PersonService {
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
 
-        PersonVO vo = ObjectMapper.parseObject(entity,PersonVO.class);
+        PersonVO vo = ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getMyId())).withSelfRel());
         return vo;
-
-
-
     }
 
     public void delete(Long id){
