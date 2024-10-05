@@ -13,3 +13,8 @@ spring:
 
   application:
     name: USER-SERVICE
+
+springdoc:
+  pathsToMatch: /api/**/**
+  swagger-ui:
+    use-root-path: true

@@ -1,9 +1,10 @@
-package com.joaogabrielferr.spring_api.services;
+package com.joaogabrielferr.spring_api.unitTests.services;
 
 import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
 import com.joaogabrielferr.spring_api.exceptions.RequiredObjectIsNullException;
 import com.joaogabrielferr.spring_api.model.Person;
 import com.joaogabrielferr.spring_api.repositories.PersonRepository;
+import com.joaogabrielferr.spring_api.services.PersonService;
 import com.joaogabrielferr.spring_api.unitTests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
