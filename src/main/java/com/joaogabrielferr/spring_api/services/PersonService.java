@@ -3,6 +3,7 @@ package com.joaogabrielferr.spring_api.services;
 import com.joaogabrielferr.spring_api.controllers.PersonController;
 import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
 import com.joaogabrielferr.spring_api.data.VO.v2.PersonVOV2;
+import com.joaogabrielferr.spring_api.exceptions.RequiredObjectIsNullException;
 import com.joaogabrielferr.spring_api.exceptions.ResourceNotFoundException;
 import com.joaogabrielferr.spring_api.mapper.ObjectMapper;
 import com.joaogabrielferr.spring_api.mapper.custom.PersonMapper;
@@ -55,6 +56,10 @@ public class PersonService {
     public PersonVO create(PersonVO person){
         logger.info("Creating one person");
 
+        if(person == null){
+            throw new RequiredObjectIsNullException();
+        }
+
         var entity = ObjectMapper.parseObject(person,Person.class);
         PersonVO vo = ObjectMapper.parseObject(repository.save(entity),PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getMyId())).withSelfRel());
@@ -69,6 +74,10 @@ public class PersonService {
 
     public PersonVO update(PersonVO person){
         logger.info("Updating one person");
+
+        if(person == null){
+            throw new RequiredObjectIsNullException();
+        }
 
         var entity = repository.findById(person.getMyId())
                 .orElseThrow(()-> new ResourceNotFoundException("User with id " + person.getMyId() + " does not exist"));

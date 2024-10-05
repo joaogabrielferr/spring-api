@@ -1,6 +1,7 @@
 package com.joaogabrielferr.spring_api.services;
 
 import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
+import com.joaogabrielferr.spring_api.exceptions.RequiredObjectIsNullException;
 import com.joaogabrielferr.spring_api.model.Person;
 import com.joaogabrielferr.spring_api.repositories.PersonRepository;
 import com.joaogabrielferr.spring_api.unitTests.mapper.mocks.MockPerson;
@@ -93,6 +94,18 @@ class PersonServiceTest {
         assertEquals(result.getAddress(), persisted.getAddress());
     }
 
+    @Test
+    void createWithNullPerson(){
+        Exception ex = assertThrows(RequiredObjectIsNullException.class,()->{
+            service.create(null);
+        });
+
+        String expectedMessage = "Can't persist a null object!";
+        String message = ex.getMessage();
+
+        assertTrue(message.contains(expectedMessage));
+    }
+
 
     @Test
     void update() {
@@ -120,5 +133,18 @@ class PersonServiceTest {
         assertEquals(result.getAddress(), persisted.getAddress());
 
     }
+
+    @Test
+    void UpdateWithNullPerson(){
+        Exception ex = assertThrows(RequiredObjectIsNullException.class,()->{
+            service.update(null);
+        });
+
+        String expectedMessage = "Can't persist a null object!";
+        String message = ex.getMessage();
+
+        assertTrue(message.contains(expectedMessage));
+    }
+
 
 }
