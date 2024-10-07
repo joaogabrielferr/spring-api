@@ -1,6 +1,8 @@
 package com.joaogabrielferr.spring_api.mapper;
 
+import com.joaogabrielferr.spring_api.data.VO.v1.BookVO;
 import com.joaogabrielferr.spring_api.data.VO.v1.PersonVO;
+import com.joaogabrielferr.spring_api.model.Book;
 import com.joaogabrielferr.spring_api.model.Person;
 import org.modelmapper.ModelMapper;
 
@@ -14,6 +16,8 @@ public class ObjectMapper {
     static{
         mapper.createTypeMap(Person.class, PersonVO.class).addMapping(Person::getId,PersonVO::setMyId);
         mapper.createTypeMap(PersonVO.class, Person.class).addMapping(PersonVO::getMyId,Person::setId);
+        mapper.createTypeMap(Book.class, BookVO.class).addMapping(Book::getId,BookVO::setMyId);
+        mapper.createTypeMap(BookVO.class, Book.class).addMapping(BookVO::getMyId,Book::setId);
     }
 
     public static <S,D> D parseObject(S source, Class<D> destination){

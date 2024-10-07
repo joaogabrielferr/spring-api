@@ -44,13 +44,13 @@ public class PersonService {
     public List<PersonVO> findAll(){
         logger.info("Finding all");
 
-        List<PersonVO> persons =  ObjectMapper.parseListObject(repository.findAll(),PersonVO.class);
+        List<PersonVO> personList =  ObjectMapper.parseListObject(repository.findAll(),PersonVO.class);
 
-        persons.forEach(p->{
+        personList.forEach(p->{
             p.add(linkTo(methodOn(PersonController.class).findById(p.getMyId())).withSelfRel());
         });
 
-        return persons;
+        return personList;
     }
 
     public PersonVO create(PersonVO person){
