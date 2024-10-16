@@ -62,8 +62,10 @@ public class BookController {
                     @ApiResponse(description = "Internal error",responseCode = "500",content = @Content),
             }
     )
-    public BookVO create(@RequestBody BookVO book){
-        return bookService.create(book);
+    public ResponseEntity<BookVO> create(@RequestBody BookVO book){
+        BookVO vo = bookService.create(book);
+        return ResponseEntity.ok(vo);
+//        return bookService.create(book);
     }
 
 

@@ -1,8 +1,6 @@
 package com.joaogabrielferr.spring_api.exceptions.handler;
 
-import com.joaogabrielferr.spring_api.exceptions.ExceptionResponse;
-import com.joaogabrielferr.spring_api.exceptions.RequiredObjectIsNullException;
-import com.joaogabrielferr.spring_api.exceptions.ResourceNotFoundException;
+import com.joaogabrielferr.spring_api.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,6 +40,21 @@ public class CustomizedReponseEntityExceptionHandler extends ResponseEntityExcep
         return new ResponseEntity<>(exceptionResponse,HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidJWTAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJWTAuthenticationException(Exception ex, WebRequest request){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(UsernameAlreadyInUseException.class)
+    public final ResponseEntity<ExceptionResponse> UsernameAlreadyInUseException(Exception ex, WebRequest request){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage(),request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.BAD_REQUEST);
+    }
 
 
 
